@@ -95,3 +95,55 @@ end
 
 
 
+
+
+(* extra feature *)
+type tetromino = | I | O | T | L1 | L2 | S1 | S2
+let all_tetriminos = [I;O;T;L1;L2;S1;S2] 
+let ord_tetrominos (n:int) : tetromino =
+  match n with
+  | 0 -> I | 1 -> O | 2 -> T | 3 -> L1 | 4 -> L2 | 5 -> S1 | _ -> S2
+
+open MatrixI
+
+class generator_tetrominos (count:int) : generator = 
+object (self)
+  val mutable counter = count
+  method get_next () =
+    if (counter > 0)
+    then (counter <- (counter-1);
+    (match (ord_tetrominos (World.rand 6+1)) with
+    | I -> let m1 = new_matrix (4,1) in
+           let m2 = push_row m1 0 [true;true;true;true] in
+           Some (new pobj m2)
+    | O -> Some (create_pobj (2,2))
+    | T -> let m1 = new_matrix (3,2) in
+           let m2 = push_row m1 0 [true;true;true] in
+           let m3 = push_row m2 1 [false;true;false] in
+           Some(new pobj m3)
+    | L1 -> let m1 = new_matrix (3,2) in
+            let m2 = push_row m1 0 [true;true;true] in
+            let m3 = push_row m2 1 [true;false;false] in
+            Some (new pobj m3)
+    | L2 -> let m1 = new_matrix (3,2) in
+            let m2 = push_row m1 0 [true;true;true] in
+            let m3 = push_row m2 1 [false;false;true] in
+            Some (new pobj m3)
+    | S1 -> let m1 = new_matrix (3,2) in
+            let m2 = push_row m1 0 [false;true;true] in
+            let m3 = push_row m2 1 [true;true;false] in
+            Some (new pobj m3)
+    | S2 -> let m1 = new_matrix (3,2) in
+            let m2 = push_row m1 0 [true;true;false] in
+            let m3 = push_row m2 1 [false;true;true] in
+            Some(new pobj m3)))
+    else None
+
+  method get_remaining =
+    let rec getallpo ()=
+      match self#get_next () with
+      | None -> []
+      | Some po -> po :: getallpo ()
+    in
+    getallpo
+end

@@ -173,7 +173,10 @@ let key_handler c =
     | 's' | 'S' -> delay := (!delay) + 5
     | 'n' | 'N' -> button_press_plot_left ()
     | 'm' | 'M' -> button_press_plot_right ()
-    | 'i' | 'I' -> Test.testing !WorldBins.args_option
+    | 'i' | 'I' -> (match !WorldBins.args_option with
+		    | 1 | 2 -> Test.testing !WorldBins.args_option
+		    | 3 ->  Test.test_tetrominos ()
+		    | _ -> failwith "Invalid Option")
     | _ -> ()
 
 

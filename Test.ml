@@ -137,12 +137,6 @@ let test_tetrominos () : unit =
   let bin_width = f1 (rand 15) in
   (*let f2 x = if x < 50 then 50 else x in*)
   let p_count = 50 (*rand 150*) in
-  let p_height = Helpers.with_inv_probability_or rand 3
-		 (fun () -> bin_height - 1) 
-		 (fun () -> bin_height/2) in
-  let p_width = Helpers.with_inv_probability_or rand 3
-		(fun () -> bin_width - 1) 
-		(fun () -> bin_width/2) in
   let bg = new bingen_rect (bin_width, bin_height) in
   let pg = new generator_tetrominos p_count in
   let x = new ff_packer in

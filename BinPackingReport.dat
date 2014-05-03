@@ -30,3 +30,15 @@ FF:75% Bins:8 Pobj:50 Bin_units:1440 Pobj_units:1080 Bin_Median:79 TimeTook:7.
 BF:84% Bins:4 Pobj:50 Bin_units:744 Pobj_units:631 Bin_Median:99 TimeTook:134.
 FFD:84% Bins:4 Pobj:50 Bin_units:744 Pobj_units:631 Bin_Median:88 TimeTook:5.
 FF:67% Bins:5 Pobj:50 Bin_units:930 Pobj_units:631 Bin_Median:75 TimeTook:4.
+BF:92% Bins:2 Pobj:50 Bin_units:50 Pobj_units:46 Bin_Median:100 TimeTook:1.
+FFD:92% Bins:2 Pobj:50 Bin_units:50 Pobj_units:46 Bin_Median:100 TimeTook:0.
+FF:61% Bins:3 Pobj:50 Bin_units:75 Pobj_units:46 Bin_Median:84 TimeTook:0.
+BF:89% Bins:8 Pobj:50 Bin_units:200 Pobj_units:178 Bin_Median:100 TimeTook:5.
+FFD:89% Bins:8 Pobj:50 Bin_units:200 Pobj_units:178 Bin_Median:96 TimeTook:0.
+FF:79% Bins:9 Pobj:50 Bin_units:225 Pobj_units:178 Bin_Median:80 TimeTook:0.
+BF:94% Bins:7 Pobj:50 Bin_units:210 Pobj_units:199 Bin_Median:100 TimeTook:7.
+FFD:94% Bins:7 Pobj:50 Bin_units:210 Pobj_units:199 Bin_Median:93 TimeTook:0.
+FF:82% Bins:8 Pobj:50 Bin_units:240 Pobj_units:199 Bin_Median:90 TimeTook:1.
+BF:77% Bins:4 Pobj:50 Bin_units:704 Pobj_units:549 Bin_Median:99 TimeTook:112.
+FFD:77% Bins:4 Pobj:50 Bin_units:704 Pobj_units:549 Bin_Median:93 TimeTook:1.
+FF:77% Bins:4 Pobj:50 Bin_units:704 Pobj_units:549 Bin_Median:88 TimeTook:2.

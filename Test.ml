@@ -97,8 +97,10 @@ let testing (opt:int) : unit =
   wotxt#draw;
   let open World in
   let f1 x = if x < 5 then 5 else x in
-  let bin_height = f1 (rand 20) in
-  let bin_width = f1 (rand 15) in
+  let bin_height = rand 99 + 1 in
+  let bin_width = rand ((100-bin_height) + 1) in
+(*  let bin_height = f1 (rand 20) in
+  let bin_width = f1 (rand 15) in*)
   (*let f2 x = if x < 50 then 50 else x in*)
   let p_count = 50 (*rand 150*) in
   let p_height = Helpers.with_inv_probability_or rand 3

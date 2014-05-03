@@ -89,6 +89,7 @@ object (self)
 end
 
 let testing (opt:int) : unit =
+  print_string (" ##RECTANGLE##"); flush_all ();
   WorldBins.reset ();
   Graphics.clear_graph ();
   let str : string = "Please wait.. In Progress..." in

@@ -22,7 +22,8 @@ let parse_args () : (unit -> unit) =
   | "Auto" -> (fun () -> TestAuto.testing_auto ())
   | "Hole" -> (fun () -> !WorldBins.args_option <- 2;
 			 Test.testing !WorldBins.args_option)
-  | "Tetrominos" -> (fun () -> Test.test_tetrominos ())
+  | "Tetrominos" -> (fun () -> !WorldBins.args_option <- 3;
+			       Test.test_tetrominos ())
   | _ -> usage ()
 
 let run () : unit =

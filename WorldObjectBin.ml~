@@ -1,0 +1,73 @@
+open Core.Std
+open BinI
+
+class wo_bins_block =
+object (self)
+
+  val mutable blist:bin list = []
+  val mutable coord_extreme_pair:(int * int * bin) list = []
+  val mutable coord_initial_pair:(int * int * bin) list = []
+  (* maximum height of single plot on particular x-axis. *)
+  val mutable maximum_y = 0
+  val mutable current_y = 0
+  val mutable current_x = 0
+
+(*  initializer
+    self#draw
+ *)
+
+  method private get_extrems () =
+    let rec aux ms =
+      match ms with
+      | [] -> ()
+      | m :: tl -> 
+	 let ns = m#get_coords () in
+	 coord_extreme_pair <- 
+	   (Helpers.cood_x ns Int.max, Helpers.cood_y ns Int.max, m) :: coord_extreme_pair;
+	 let x = Helpers.cood_x ns Int.max in
+	 let y = Helpers.cood_y ns Int.max in
+	 print_string ((Int.to_string x) ^ (Int.to_string y) ^ " ");
+	 flush_all ();
+	aux tl
+    in
+    aux blist
+
+
+  (* print in single row by row. *)
+  method private set_initial_coords () =
+    let rec aux ns =
+      match ns with
+      | [] -> ()
+      | (x, y, b) :: ns' ->
+	 begin
+	   (* check x-axis extreme edge of bin *)
+	   if not (World.check_bounds (current_x + x + 1, 0)) 
+	   then(
+	     current_x <- 0;
+	     current_y <- current_y + maximum_y)
+	   else
+	     (if y > maximum_y then maximum_y <- y);
+	 end;
+	 coord_initial_pair <- (current_x + 1, current_y + 1, b) :: coord_initial_pair;
+	 let x1 = (current_x + 1) in
+	 let y1 = (current_y + 1) in
+	 print_string (" " ^ (Int.to_string x1) ^ (Int.to_string y1) ^ " ");
+	 flush_all ();
+
+	 current_x <- current_x + x + 2;
+	 aux ns'
+    in
+    aux (Helpers.sort_on_y coord_extreme_pair)
+   
+  method push (x: BinI.bin list) =
+    blist <- x @ blist
+			
+  method draw =
+    self#get_extrems ();
+    self#set_initial_coords ();    
+    List.iter ~f:(fun (x, y, b) -> 
+		  let wob = new WorldObjectBlock.wo_block (x,y) in
+		  b#set_block_disp wob;
+		  b#draw;
+		  wob#draw) coord_initial_pair
+end

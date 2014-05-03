@@ -1,0 +1,81 @@
+open Core.Std
+
+class type bin_avg_i = 
+object
+  method calc_pack : BinI.bin list -> WorldBins.bintype -> unit
+end
+  
+class bin_avg : bin_avg_i =
+object (self)
+
+
+  val mutable bin_block_count : int = 0
+  val mutable pobj_block_count : int = 0
+  val mutable bin_count : int = 0
+  val mutable pobj_count : int = 0
+
+  method private bin_block_counter (b:BinI.bin) : unit =
+    let y = b#get_mat in
+    let x = MatrixI.BoolMatrix.get_all y in
+    bin_block_count <- bin_block_count + List.length x;
+    ()
+    
+  method private pobj_block_counter (p:PobjI.pobj) : unit =
+    let y = p#get_mat in
+    let xs = MatrixI.BoolMatrix.get_all y in
+    let rec aux xl =
+      match xl with
+      | [] -> ()
+      | (_, _, true) :: xs' ->
+	 pobj_block_count <- pobj_block_count + 1;
+	 aux xs'
+      | _ -> ()
+    in
+    aux xs
+
+  method private pobjs_block (bn:BinI.bin) : unit =
+    let rec aux (xs: PobjI.pobj list) : unit =
+      match xs with
+      | [] -> ()
+      | x :: xs' ->
+	 pobj_count <- pobj_count + 1;
+	 self#pobj_block_counter x;
+	 aux xs'
+    (*      match x#pop_pobj () with
+      | None -> ()
+      | Some p ->
+	 pobj_count <- pobj_count + 1;
+	 self#pobj_block_counter p;
+	 aux x*)
+    in
+    aux (bn#get_pobj ())
+	
+  method private update_pack (bt:WorldBins.bintype) : unit =
+    match bt with
+    | Ffd -> 
+       let f x = Int.to_string x in
+       print_string ("!" ^ (f  bin_block_count) ^ "-" ^ (f pobj_block_count) ^ "-" ^ (f  bin_count) ^ "-" ^ (f pobj_count) ^ " " );
+       ()
+    | Ff -> ()
+    | Bf -> ()
+    
+  method calc_pack (blst: BinI.bin list) (pack: WorldBins.bintype) : unit = 
+    bin_block_count <- 0;
+    pobj_block_count <- 0;
+    bin_count <- 0;
+    pobj_count <- 0;
+    let rec aux (xs : BinI.bin list) : unit =
+      match xs with
+      | [] -> ()
+      | x :: xs'  -> 
+	 bin_count <- bin_count + 1;
+	 self#bin_block_counter x;
+	 self#pobjs_block x;
+	 aux xs'
+    in
+    aux blst;
+    self#update_pack pack;
+    ()
+
+end
+

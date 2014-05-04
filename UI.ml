@@ -175,7 +175,8 @@ let key_handler c =
     | 'm' | 'M' -> button_press_plot_right ()
     | 'i' | 'I' -> (match !WorldBins.args_option with
 		    | 1 | 2 -> Test.testing !WorldBins.args_option
-		    | 3 ->  Test.test_tetrominos ()
+		    | 3 -> Test.test_tetrominos ()
+		    | 4 -> Test.demo !WorldBins.args_option
 		    | _ -> failwith "Invalid Option")
     | _ -> ()
 

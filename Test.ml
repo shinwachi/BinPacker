@@ -123,10 +123,6 @@ let testing (opt:int) : unit =
   pt#test_packers ();
   ()
 
-
-
-
-
 let test_tetrominos () : unit = 
   print_string (" ##TETROMINOS##"); flush_all ();
   WorldBins.reset ();
@@ -142,6 +138,35 @@ let test_tetrominos () : unit =
   let p_count = 50 (*rand 150*) in
   let bg = new bingen_rect (bin_width, bin_height) in
   let pg = new generator_tetrominos p_count in
+  let x = new ff_packer in
+  let y = new ffd_packer in
+  let z = new bf_packer in
+  let pt = new packer_test pg bg [x;y;z] in
+  pt#test_packers ();
+  ()
+
+
+let demo (_:int) : unit =
+  print_string (" ##DEMO##"); flush_all ();
+  WorldBins.reset ();
+  Graphics.clear_graph ();
+  let str : string = "Please wait.. In Progress..." in
+  let wotxt = new WorldObjectText.world_object_text str (18,35) Graphics.red in
+  wotxt#draw;
+  let open World in
+  let f1 x = if x < 5 then 5 else x in
+  let bin_height = f1 (rand 20) in
+  let y = if bin_height > 10 then 5 else bin_height in
+  let bin_width = f1 (rand y) in
+  let p_count = 50 in
+  let p_height = Helpers.with_inv_probability_or rand 3
+		 (fun () -> bin_height - 1) 
+		 (fun () -> bin_height/2) in
+  let p_width = Helpers.with_inv_probability_or rand 3
+		(fun () -> bin_width - 1) 
+		(fun () -> bin_width/2) in
+  let bg = new bingen_rect (bin_width, bin_height) in
+  let pg = new generator_random p_count (p_width, p_height) in
   let x = new ff_packer in
   let y = new ffd_packer in
   let z = new bf_packer in

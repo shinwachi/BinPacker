@@ -24,8 +24,8 @@ Main.native GUI : To RUN the GUI MODE, Bin & Pobjs are in random rectangle size.
 ./Main.native Tetromino	: Same as GUI mode, but Pobjs are not rectangle shape 
                           but in random Tetromino shape.
 
-Warning1 : The BestFit is heavy computational algorithm, since all Pobjs and 
-           Bins are randomly generated hence their might be in situation where 
+Warning1 : The BestFit is computationally heavy algorithm, since all Pobjs and 
+           Bins are randomly generated hence there might be in situation where 
            processing time of BF varies from 400s to 900s. Please be patient.
 
 Warning2 : Hole mode depicts the Bin Defect scenario in real world. Hence there

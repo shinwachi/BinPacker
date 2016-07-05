@@ -2,6 +2,8 @@
 
 CS51 final project to demonstrate bin packing algorithm using OCaml.  [Watch the video here](https://vimeo.com/93603629).
 
+Authors: Zeeshan Qamar and Shin Wachi
+
 ### Compile the packer
 ```
 make -k         : To compile the program	

@@ -17,7 +17,7 @@ Main.native GUI : To RUN the GUI MODE, Bin & Pobjs are in random rectangle size.
 
 Warning1 : The BestFit is heavy computational algorithm, since all Pobjs and 
            Bins are randomly generated hence their might be in situation where 
-           processing time of BF varies from 400s to 900s. Please be patience.
+           processing time of BF varies from 400s to 900s. Please be patient.
 
 Warning2 : Hole mode depicts the Bin Defect scenario in real world. Hence there
            could be scenario where size of Pobjs is greater than Bin size. 
